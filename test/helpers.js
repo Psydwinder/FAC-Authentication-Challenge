@@ -1,4 +1,4 @@
-const DIR = "solution";
+const DIR = "src";
 
 const server = require(`../${DIR}/server.js`);
 const db = require(`../${DIR}/database/db.js`);

@@ -1,14 +1,14 @@
 {
   "scripts": {
     "start": "node src/index.js",
-    "dev": "DB_FILE=db.sqlite COOKIE_SECRET=abc nodemon src/index.js",
-    "seed": "DB_FILE=db.sqlite & node src/database/seed.js",
-    "test:1": "DB_FILE=test.sqlite & COOKIE_SECRET=abc & node --no-warnings test/1.test.js",
-    "test:2": "DB_FILE=test.sqlite & COOKIE_SECRET=abc & node --no-warnings test/2.test.js",
-    "test:3": "DB_FILE=test.sqlite & COOKIE_SECRET=abc & node --no-warnings test/3.test.js",
-    "test:4": "DB_FILE=test.sqlite & COOKIE_SECRET=abc & node --no-warnings test/4.test.js",
-    "test:5": "DB_FILE=test.sqlite & COOKIE_SECRET=abc & node --no-warnings test/5.test.js",
-    "test:6": "DB_FILE=test.sqlite & COOKIE_SECRET=abc & node --no-warnings test/6.test.js"
+    "dev": "SET DB_FILE=db.sqlite & SET COOKIE_SECRET=abc & nodemon src/index.js",
+    "seed": "SET DB_FILE=db.sqlite & node src/database/seed.js",
+    "test:1": "DB_FILE=test.sqlite COOKIE_SECRET=abc node --no-warnings test/1.test.js",
+    "test:2": "DB_FILE=test.sqlite COOKIE_SECRET=abc node --no-warnings test/2.test.js",
+    "test:3": "DB_FILE=test.sqlite COOKIE_SECRET=abc node --no-warnings test/3.test.js",
+    "test:4": "DB_FILE=test.sqlite COOKIE_SECRET=abc node --no-warnings test/4.test.js",
+    "test:5": "DB_FILE=test.sqlite COOKIE_SECRET=abc node --no-warnings test/5.test.js",
+    "test:6": "DB_FILE=test.sqlite COOKIE_SECRET=abc node --no-warnings test/6.test.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

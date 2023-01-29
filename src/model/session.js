@@ -1,14 +1,17 @@
 const db = require("../database/db.js");
 
-const insert_session = db.prepare(`SELECT 1`);
+const insert_session = db.prepare(/*sql*/ `
+  INSERT INTO sessions (id, user_id, expires_at) 
+  VALUES ($id, $user_id, DATE('now', '+7 days')) 
+`);
 
-function createSession(user_id) {
-  const id = crypto.randomBytes(18).toString("base64");
-  insert_session.run({ id, user_id });
-  return id;
+function createSession(user_id) { /*Takes the user's ID as an argument*/
+  const id = crypto.randomBytes(18).toString("base64"); /*Generates a strong, long, random string to use as the session ID */
+  insert_session.run({ id, user_id });/*Insert a new session into the database (including the user ID)*/
+  return id; /*Returns the generated ID (this will be needed to store in a cookie later)*/ 
 }
 
-const select_session = db.prepare(`
+const select_session = db.prepare(/*sql*/ `
   SELECT id, user_id, expires_at
   FROM sessions WHERE id = ?
 `);
@@ -26,3 +29,4 @@ function removeSession(sid) {
 }
 
 module.exports = { createSession, getSession, removeSession };
+

@@ -1,10 +1,11 @@
-function post(req, res) {
-  /**
-   * [1] Get the session ID from the cookie
-   * [2] Remove that session from the DB
-   * [3] Remove the session cookie
-   * [4] Redirect back home
-   */
-}
+const {removeSession} = require("../model/session.js");
+
+  function post(req, res) {
+    const sid = req.signedCookies.sid; //Gets the session ID from the cookie
+    removeSession(sid); //Removes that session from the DB
+    res.clearCookie("sid"); //Removes the session cookie
+    res.redirect("/"); //Redirects back home
+  }
+
 
 module.exports = { post };

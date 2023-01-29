@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs"); //Use the bcryptjs library to hash the password the user submitted
+
 const { Layout } = require("../templates.js");
 
 function get(req, res) {
@@ -28,13 +30,18 @@ function post(req, res) {
     res.status(400).send("Bad input");
   } else {
     res.send("to-do");
-    /**
-     * [1] Hash the password
-     * [2] Create the user in the DB
-     * [3] Create the session with the new user's ID
-     * [4] Set a cookie with the session ID
-     * [5] Redirect to the user's confession page (e.g. /confessions/3)
-     */
+     bcrypt.hash(password, 12).then((hash) => { /*Hashes the password*/
+      const user = createUser(email, hash); /*Creates the user in the DB*/
+      const session_id = createSession(user.id); /*Creates the session with the new user's ID */
+      res.cookie("sid", session_id, { /*Sets a cookie with the session ID*/
+        signed: true,
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+        sameSite: "lax",
+        httpOnly: true,
+        });
+        res.redirect(`/confessions/${user.id}`); /*Redirect to the user's confession page (e.g. /confessions/3)*/
+        });
+        
   }
 }
 
