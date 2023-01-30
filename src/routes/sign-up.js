@@ -1,3 +1,5 @@
+const { createUser } = require("../model/user.js");
+const { createSession } = require("../model/session.js");
 const bcrypt = require("bcryptjs"); //Use the bcryptjs library to hash the password the user submitted
 
 const { Layout } = require("../templates.js");
@@ -29,7 +31,6 @@ function post(req, res) {
   if (!email || !password) {
     res.status(400).send("Bad input");
   } else {
-    res.send("to-do");
      bcrypt.hash(password, 12).then((hash) => { /*Hashes the password*/
       const user = createUser(email, hash); /*Creates the user in the DB*/
       const session_id = createSession(user.id); /*Creates the session with the new user's ID */

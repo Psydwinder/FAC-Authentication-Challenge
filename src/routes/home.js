@@ -1,3 +1,4 @@
+const { getSession } = require("../model/session.js");
 const { Layout } = require("../templates.js");
 
 function get(req, res) {

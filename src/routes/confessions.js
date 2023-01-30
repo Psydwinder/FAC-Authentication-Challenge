@@ -2,6 +2,7 @@ const {
   listConfessions,
   createConfession,
 } = require("../model/confessions.js");
+const { getSession } = require("../model/session.js");
 const { Layout } = require("../templates.js");
 
 /**
@@ -51,6 +52,9 @@ function get(req, res) {
     const sid = req.signedCookies.sid; //Gets the session ID from the cookie
     const session = getSession(sid); //Gets the session from the DB
     const current_user = session && session.user_id; //Gets the logged in user's ID from the session
+    /*The expression session && session.user_id is a shorthand for checking if session is truthy, and if it is, it returns session.user_id, 
+    otherwise it returns undefined. In other words, it checks if session exists and is not null, undefined, or false, and if it is, it returns 
+    the value of session.user_id. */
     if (!req.body.content || !current_user) {
       return res.status(401).send("<h1>Confession failed</h1>");
     }
@@ -58,9 +62,5 @@ function get(req, res) {
     res.redirect(`/confessions/${current_user}`); //Redirects back to the logged in user's confession page
   }
   
-  const current_user = Number(req.params.user_id);
-  createConfession(req.body.content, current_user);
-  res.redirect(`/confessions/${current_user}`);
-
 
 module.exports = { get, post };

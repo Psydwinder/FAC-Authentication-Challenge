@@ -1,6 +1,6 @@
-const { getUserByEmail } = require("../model/user.js"); /*Uses getUserByEmail from model/user.js to get the user who is trying to log in
-
-*/
+const bcrypt = require("bcryptjs");
+const { createSession } = require("../model/session.js");
+const { getUserByEmail } = require("../model/user.js"); /*Uses getUserByEmail from model/user.js to get the user who is trying to log in*/
 const { Layout } = require("../templates.js");
 
 function get(req, res) {
@@ -42,10 +42,9 @@ function post(req, res) {
         sameSite: "lax",
         httpOnly: true,
       });
-      res.send(`/confessions/${user.id}`); //Redirects to the user's confession page (e.g. /confessions/3) 
+      res.redirect(`/confessions/${user.id}`); //Redirects to the user's confession page (e.g. /confessions/3) 
     }
-  })
-  
+  });
 }
 
 module.exports = { get, post };
