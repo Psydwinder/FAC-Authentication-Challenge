@@ -48,14 +48,14 @@ function get(req, res) {
    * We can't rely on the URL params. We can only trust the cookie.
    */
   function post(req, res) {
-    const sid = req.signedCookies.sid; //Get the session ID from the cookie
-    const session = getSession(sid); //Get the session from the DB
-    const current_user = session && session.user_id; //Get the logged in user's ID from the session
+    const sid = req.signedCookies.sid; //Gets the session ID from the cookie
+    const session = getSession(sid); //Gets the session from the DB
+    const current_user = session && session.user_id; //Gets the logged in user's ID from the session
     if (!req.body.content || !current_user) {
       return res.status(401).send("<h1>Confession failed</h1>");
     }
-    createConfession(req.body.content, current_user); //Use the user ID to create the confession in the DB
-    res.redirect(`/confessions/${current_user}`); //Redirect back to the logged in user's confession page
+    createConfession(req.body.content, current_user); //Uses the user ID to create the confession in the DB
+    res.redirect(`/confessions/${current_user}`); //Redirects back to the logged in user's confession page
   }
   
   const current_user = Number(req.params.user_id);

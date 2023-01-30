@@ -31,18 +31,18 @@ function post(req, res) {
   if (!email || !password || !user) {
     return res.status(400).send("<h1>Login failed</h1>");
   }
-  bcrypt.compare(password, user.hash).then((match)=> { //Compare submitted password to stored hash
+  bcrypt.compare(password, user.hash).then((match)=> { //Compares submitted password to stored hash
     if (!match) { 
-      return res.status(400).send("<h1>Login failed</h1>") //If no match redirect back to same page so user can retry
+      return res.status(400).send("<h1>Login failed</h1>") //If no match redirects back to same page so user can retry
     } else {
-      const session_id = createSession(user.id); //If match create a session with their user ID,
-      res.cookie("sid", session_id, { //set a cookie with the session ID,
+      const session_id = createSession(user.id); //If the session ID matches, creates a session with their user ID,
+      res.cookie("sid", session_id, { //Sets a cookie with the session ID,
         signed: true,
         maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
         sameSite: "lax",
         httpOnly: true,
       });
-      res.send(`/confessions/${user.id}`); //redirect to the user's confession page (e.g. /confessions/3) 
+      res.send(`/confessions/${user.id}`); //Redirects to the user's confession page (e.g. /confessions/3) 
     }
   })
   

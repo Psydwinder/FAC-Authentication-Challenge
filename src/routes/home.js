@@ -9,8 +9,8 @@ function get(req, res) {
       <h1>${title}</h1>
       ${
         session
-          ? /*html*/ `<form method="POST" action="/log-out"><button class="Button">Log out</button></form>` //If the session exists render a log out form, this also submits a request to `POST /log-out`
-          : /*html*/ `<nav><a href="/sign-up">Sign up</a> or <a href="/log-in">log in</a></nav>` //Else render the sign up/log in links
+          ? /*html*/ `<form method="POST" action="/log-out"><button class="Button">Log out</button></form>` //If the session exists, it renders a log out form, this also submits a request to `POST /log-out`
+          : /*html*/ `<nav><a href="/sign-up">Sign up</a> or <a href="/log-in">log in</a></nav>` //If the session doesn't exist, it renders the sign up/log in links
       }
     </div>
   `;
